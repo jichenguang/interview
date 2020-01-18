@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Interview</title>
+    <link>https://hadyang.github.io/interview/docs/architecture/bigdata/</link>
+    <description>Recent content on Interview</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 14 Jan 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://hadyang.github.io/interview/docs/architecture/bigdata/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>HDFS</title>
+      <link>https://hadyang.github.io/interview/docs/architecture/bigdata/hdfs/</link>
+      <pubDate>Tue, 14 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://hadyang.github.io/interview/docs/architecture/bigdata/hdfs/</guid>
+      <description>HDFS 相关概念 HDFS要实现有以下优势：
+ 兼容廉价硬件设备 流数据读写 大数据集 简单的文件模型 强大的跨平台兼容性  HDFS 在满足上述优势的同时，也不可避免的有一些自身的局限性，主要包括以下几个方面：
+ 不适合低延时的数据访问 无法高效的存储大量小文件 不支持多用户写入及任意修改文件  块 HDFS 同计算机系统一样，有一个存储块的概念，默认大小为 64M，一个文件被分成多个块存储。块的大小远远大于计算机文件系统，可以减小寻址开销。其优势有：
+ 支持大规模文件存储：以块为单位进行存储，一个大文件可被分割为多个块，并分发到不同节点，因此单个节点的存储容量不会限制存储文件的上限 简化系统设计：首先简化了存储管理，因为文件块大小固定，这样很容易计算节点可存储文件块的数量；其次，方便了元数据管理，元数据不与文件块存储，可由其他系统负责管理元数据。 适合数据备份：每个文件块都可冗余存储到多个节点，大大提高了系统的容错性和可用性。  名称节点（NameNode）和数据节点（DataNode）    NameNode DataNode     存储元数据 存储文件内容   元数据存储在内存 文件内容存储在磁盘   保存文件、block、 DataNode 之间的映射关系 维护block、本地文件系统的映射关系    名称节点（NameNode）数据结构 在 HDFS 中，名称节点复杂管理分布式文件系统的命名空间（NameSpace），保存两大核心数据结构：FSImage 和 EditLog。名称节点中还记录了每个文件中各个块所在的数据节点的位置信息。
+FSImage 文件用于维护文件系统树以及文件树中所有文件和文件夹的元数据。FSImage 文件中包含文件系统所有目录和文件 inode 的序列化形式，每个 inode 是一个文件或目录的元数据表示，包含：文件复制等级、修改和访问时间、访问权限、块大小以及组成文件的块。
+FSImage 中并没有记录块存储在哪个数据节点。而是由名称节点把这些映射保存在内存中，当数据节点加入 HDFS 集群时，数据节点会报告自己所包含的数据块给名称节点，并定期执行告知，以确保名称节点的映射关系是正确的。
+EditLog 记录了所有针对文件的创建、删除、重命名等操作。</description>
+    </item>
+    
+  </channel>
+</rss>
